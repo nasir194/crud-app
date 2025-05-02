@@ -1,6 +1,20 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Table({ userData }) {
+  const navigate = useNavigate();
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:8000/users/${id}`)
+      .then((response) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error deleting user:", error);
+      });
+  };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <h1 className="text-3xl mb-2 ">List of Users</h1>
@@ -59,6 +73,7 @@ export default function Table({ userData }) {
                 </a>
                 <a
                   href="#"
+                  onClick={() => handleDelete(user.id)}
                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                 >
                   Delete

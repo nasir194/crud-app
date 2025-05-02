@@ -135,17 +135,16 @@ export default function Form() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label
-              for="age"
+              for="last_name"
               className="block text-sm font-medium text-gray-700"
             >
               Age
             </label>
             <input
-              type="number"
-              onChange={(e) => setUser({ ...user, age: e.target.value })}
+              type="text"
               id="age"
               name="age"
-              min="0"
+              onChange={(e) => setUser({ ...user, Age: e.target.value })}
               className="px-4 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
             />

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Table from "./Table";
+// import { Link } from "react-router-dom";
 
 // https://dummyjson.com/users
 function App() {
