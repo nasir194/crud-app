@@ -1,8 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function Form() {
+export default function Update() {
+  const { id } = useParams();
+  const userId = id; // Get the user ID from the URL parameters
+
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -14,19 +17,31 @@ export default function Form() {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/users/${userId}`)
+      .then((response) => {
+        console.log("User data fetched successfully:", response.data);
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [userId]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/users", user)
+      .put(`http://localhost:8000/users/${userId}`, user)
+      // eslint-disable-next-line no-unused-vars
       .then((response) => {
-        console.log("User added successfully:", response.data);
-        navigate("/"); // Redirect to the home page after successful submission
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error adding user:", error);
       });
   };
-
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen">
       <form
@@ -34,7 +49,7 @@ export default function Form() {
         className="bg-white p-8 rounded-2xl shadow-md w-full max-w-lg space-y-6 "
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
-          Add User Information
+          Edit User Information
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -49,6 +64,7 @@ export default function Form() {
               type="text"
               id="first_name"
               name="first_name"
+              value={user.first_name}
               onChange={(e) => setUser({ ...user, first_name: e.target.value })}
               className="mt-1 px-4 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
@@ -65,6 +81,7 @@ export default function Form() {
               type="text"
               id="last_name"
               name="last_name"
+              value={user.last_name}
               onChange={(e) => setUser({ ...user, last_name: e.target.value })}
               className="px-4 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
@@ -83,6 +100,7 @@ export default function Form() {
             type="text"
             id="email"
             name="email"
+            value={user.email}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
             className="px-4 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             required
@@ -100,6 +118,7 @@ export default function Form() {
             type="text"
             id="gender"
             name="gender"
+            value={user.gender}
             onChange={(e) => setUser({ ...user, gender: e.target.value })}
             className="px-4 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
             required
@@ -118,6 +137,7 @@ export default function Form() {
               type="text"
               id="age"
               name="age"
+              value={user.Age}
               onChange={(e) => setUser({ ...user, Age: e.target.value })}
               className="px-4 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
@@ -132,6 +152,7 @@ export default function Form() {
             </label>
             <input
               type="tel"
+              value={user.phone_number}
               onChange={(e) =>
                 setUser({ ...user, phone_number: e.target.value })
               }
@@ -152,6 +173,7 @@ export default function Form() {
           </label>
           <textarea
             id="address"
+            value={user.address}
             onChange={(e) => setUser({ ...user, address: e.target.value })}
             name="address"
             rows="3"

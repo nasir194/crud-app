@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import Form from "./Form.jsx";
 import "./index.css";
+import Update from "./Update.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/update/:id",
-    element: <Form />,
+    element: <Update />,
   },
 ]);
 
