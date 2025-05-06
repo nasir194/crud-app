@@ -1,8 +1,18 @@
 {
   "users": [
     {
+      "id": "1",
+      "first_name": "Flore",
+      "last_name": "Fidelli",
+      "email": "ffidelli0@cam.ac.uk",
+      "gender": "Female",
+      "Age": 62,
+      "phone_number": "386-185-5598",
+      "address": "19th Floor"
+    },
+    {
       "id": "2",
-      "first_name": "Gena Mara",
+      "first_name": "Gena",
       "last_name": "Ashcroft",
       "email": "gashcroft1@storify.com",
       "gender": "Female",
@@ -89,6 +99,16 @@
       "Age": 10,
       "phone_number": "372-992-7128",
       "address": "Room 697"
+    },
+    {
+      "id": "13c2",
+      "first_name": "Abu",
+      "last_name": "Fidelli",
+      "Age": "43",
+      "phone_number": "123-4465",
+      "email": "qaziabusayed@gmail.com",
+      "gender": "Female",
+      "address": "sass"
     }
   ]
 }
