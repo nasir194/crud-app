@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1",
-      "first_name": "Flore",
+      "first_name": "Kolaaboti",
       "last_name": "Fidelli",
       "email": "ffidelli0@cam.ac.uk",
       "gender": "Female",
@@ -109,6 +109,16 @@
       "email": "qaziabusayed@gmail.com",
       "gender": "Female",
       "address": "sass"
+    },
+    {
+      "id": "c5f0",
+      "first_name": "Flore",
+      "last_name": "Naser",
+      "Age": "70",
+      "phone_number": "344-184-5401",
+      "email": "strembley8@mac.com",
+      "gender": "Female",
+      "address": "sasasa"
     }
   ]
 }

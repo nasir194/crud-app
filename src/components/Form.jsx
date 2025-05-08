@@ -1,33 +1,58 @@
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 
-export default function Form({ editUser }) {
-  console.log(editUser);
-  const [user, setUser] = useState(
-    editUser || {
-      first_name: "",
-      last_name: "",
-      Age: "",
-      phone_number: "",
-      email: "",
-      gender: "",
-      address: "",
-    }
-  );
+export default function Form() {
+  const [user, setUser] = useState({
+    first_name: "",
+    last_name: "",
+    Age: "",
+    phone_number: "",
+    email: "",
+    gender: "",
+    address: "",
+  });
 
   const navigate = useNavigate();
+  const { id } = useParams();
+  console.log(id); // 1 , id you click
+  const editUser = useLoaderData();
+  console.log(editUser); // obj of the corresponding id, obj with id=1
+
+  // when i click edit button i get id and user data which logic written in routes in App component
+  // but for Add i dont get any id or data
+  useEffect(() => {
+    if (id && editUser) {
+      setUser(editUser);
+    }
+  }, [id, editUser]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/users", user)
-      .then((response) => {
-        console.log("User added successfully:", response.data);
-        navigate("/"); // Redirect to the home page after successful submission
-      })
-      .catch((error) => {
-        console.error("Error adding user:", error);
-      });
+
+    if (id) {
+      // Edit existing user
+      axios
+        .put(`http://localhost:8000/users/${id}`, user)
+        .then((response) => {
+          console.log("User updated successfully:", response.data);
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error updating user:", error);
+        });
+    } else {
+      // Add new user
+      axios
+        .post("http://localhost:8000/users", user)
+        .then((response) => {
+          console.log("User added successfully:", response.data);
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error adding user:", error);
+        });
+    }
   };
 
   return (
@@ -37,7 +62,7 @@ export default function Form({ editUser }) {
         className="bg-white p-8 rounded-2xl shadow-md w-full max-w-lg space-y-6 "
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
-          Add User Information
+          {id ? "Edit Employee" : "Add New Employee"}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -175,7 +200,7 @@ export default function Form({ editUser }) {
             type="submit"
             className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-xl shadow-md transition"
           >
-            Submit
+            {id ? "Update" : "Submit"}
           </button>
         </div>
       </form>
